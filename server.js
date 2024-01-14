@@ -10,7 +10,13 @@ const PORT = process.env.PORT || 5001;
 
 
 app.use(bodyParser.json({ limit: '10mb' }));
-app.use(cors());
+const corsOptions = {
+    origin: '*',
+    methods: 'GET,HEAD,PUT,PATCH,POST,DELETE',
+    credentials: true,
+};
+
+app.use(cors(corsOptions));
 app.use(express.json());
 const upload = multer();
 
