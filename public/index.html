@@ -1,0 +1,86 @@
+<!DOCTYPE html>
+<html lang="en">
+
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>File Upload Example</title>
+    <style>
+        #loading {
+            display: none;
+            text-align: center;
+            padding: 20px;
+            background-color: #f0f0f0;
+            position: fixed;
+            top: 50%;
+            left: 50%;
+            transform: translate(-50%, -50%);
+            z-index: 999;
+        }
+    </style>
+</head>
+
+<body>
+    <h1>directly put image or pdf to get the response</h1>
+    <input type="file" id="fileInput">
+    <button onclick="uploadFile()">Upload Prescription</button>
+    <div id="loading">Loading...</div>
+    <div id="response"></div>
+
+    <script>
+        function uploadFile() {
+            const fileInput = document.getElementById('fileInput');
+            const file = fileInput.files[0];
+
+            if (!file) {
+                alert('Please select a file.');
+                return;
+            }
+
+            const formData = new FormData();
+            formData.append('prescription', file);
+
+            // Show loading screen
+            const loadingElement = document.getElementById('loading');
+            loadingElement.style.display = 'block';
+
+            fetch('http://localhost:3001/pres', {
+                method: 'POST',
+                body: formData
+            })
+                .then(response => response.json())
+                .then(data => {
+                    // Hide loading screen
+                    loadingElement.style.display = 'none';
+
+                    try {
+                        const parsedData = JSON.parse(data.text);
+                        displayResponse(parsedData);
+                    } catch (error) {
+                        console.error('Error parsing JSON:', error);
+                        displayResponse({ error: 'An error occurred while parsing the server response.' });
+                    }
+
+                })
+                .catch(error => {
+                    console.error('Error:', error);
+                    // Hide loading screen in case of an error
+                    loadingElement.style.display = 'none';
+                    displayResponse({ error: 'An error occurred while uploading the file.' });
+                });
+        }
+
+        function displayResponse(data) {
+            const responseContainer = document.getElementById('response');
+            responseContainer.innerHTML = '';
+
+            if (data.error) {
+                responseContainer.innerHTML = `<p>Error: ${data.error}</p>`;
+            } else {
+                responseContainer.innerHTML = `<p>${JSON.stringify(data)}</p>`;
+            }
+        }
+    </script>
+</body>
+
+</html>
