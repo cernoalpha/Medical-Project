@@ -1,0 +1,34 @@
+[
+    {
+        "PatientInformation": {
+            "Hospital": "",
+            "Date": "",
+            "Gender": "",
+            "PatientName": "",
+            "Age": "",
+            "MedicalRecordNumber": "",
+            "Physician": ""
+        },
+        "LaboratoryTestsNames": [
+        ],
+        "ClinicalHistory": "",
+        "SpecimenDetails": "",
+        "Impressions": "",
+        "Recommendations": ""
+    },
+    
+{
+    "Hospital": "",
+    "Doctor_name":"",
+    "Date": "",
+    "Gender": "",
+    "Patient_name": "",
+    "Medications": [
+        {
+            "Name":"",
+            "Dose":"",
+            "Duration":""
+        }
+    ]
+}
+]

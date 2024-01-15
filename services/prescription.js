@@ -18,22 +18,21 @@ const prescriptionOCR = async (req, res) => {
         });
     }
     const dataBuffer = req.file.buffer;
-
     const originalFileName = req.file.originalname;
     const fileExtension = originalFileName.split('.').pop();
 
-    if (fileExtension == "pdf") {
+    if (fileExtension === "pdf") {
         const pdfText = await extractPdfText(dataBuffer);
         processPDF(pdfText,res)
     }
-    else if (fileExtension == 'jpeg' || fileExtension == 'jpg' || fileExtension == 'png' || fileExtension == 'bmp') {
+    else if (fileExtension === 'jpeg' || fileExtension == 'jpg' || fileExtension === 'png' || fileExtension === 'bmp') {
         const base64Image = dataBuffer.toString('base64');
         processImage(base64Image, fileExtension, res);
     }
     else {
         res.status(400).json({
             success: false, error: {
-                message: 'Incorrect file type',
+                message: 'Invalid file type. Allowed file types are PDF, PNG, JPEG, JPG, BMP.',
                 code: 'INVALID_FILE_TYPE'
             }
         });
@@ -56,8 +55,7 @@ const processImage = async (base64Data, extension, res) => {
 
         const parts = [
             { text: "input: Read the medical details and fill in the given format" },
-            { text: "output: {\n    \"Hospital\": \"\",\n    \"Doctor_name\":\"\",\n    \"Date\": \"\",\n    \"Gender\": \"\",\n    \"Age\": \"\",\n    \"Patient_name\": \"\",\n    \"Medications\": [\n        {\n            \"Name\": \"\",\n            \"Dose\": \"\",\n            \"Duration\": \"\"\n        }\n    ]\n}" },
-            // {text: "output: {\n    \"Hospital\": \"\",\n    \"Date\": \"\",\n    \"Gender\": \"\",\n    \"Age\": \"\",\n    \"Patient_name\": \"\",\n    \"Medications\": [\n        {\n            \"Name\": \"\",\n            \"Dose\": \"\",\n            \"Duration\": \"\"\n        }\n    ]\n}"},
+            { text: "output: {\n    \"Hospital\": \"\",\n    \"DoctorName\":\"\",\n    \"Date\": \"\",\n    \"Gender\": \"\",\n    \"Age\": \"\",\n    \"PatientName\": \"\",\n    \"Medications\": [\n        {\n            \"Name\": \"\",\n            \"Dose\": \"\",\n            \"Duration\": \"\"\n        }\n    ]\n}" },
             {
                 inlineData: {
                     mimeType: `image/${extension}`,
