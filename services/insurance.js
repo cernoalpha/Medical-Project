@@ -7,7 +7,7 @@ const genAI = new GoogleGenerativeAI(process.env.API_KEY);
 const PDFParser = require('pdf-parse');
 
 
-const reportAnalysis = async (req,res) => {
+const insuranceAnalysis = async (req,res) => {
     if (!req.file || !req.file.buffer) {
         return res.status(400).json({
             success: false, error: {
@@ -45,7 +45,7 @@ const processPDF= async (reportData,res) =>{
             history: [
                 {
                     role: "user",
-                    parts: "output: \n{\n        \"PatientInformation\": {\n            \"laboratoryInfo\": \"\",\n            \"Date\": \"\",\n            \"Gender\": \"\",\n            \"PatientName\": \"\",\n            \"Age\": \"\",\n            \"MedicalRecordNumber\": \"\",\n            \"Physician\": \"\"\n        },\n        \"LaboratoryTestsNames\": [\n        ],\n        \"ClinicalHistory\": \"\",\n        \"SpecimenDetails\": \"\",\n        \"Impressions\": \"\",\n        \"Recommendations\": \"\",\n    \"BillingInformation\": {\n        \"InsuranceProvider\": \"\",\n        \"PolicyNumber\": \"\",\n        \"BillingCode\": \"\",\n        \"TotalCost\": \"\"\n    }",
+                    parts:"output: \n {\n    \"policyHolder\": {\n      \"policyHolderName\": \"\",\n      \"policyHolderId\": \"\",\n      \"dob\": \"\",\n      \"gender\": \"\",\n      \"contact\": \"\",\n      \"address\": \"\"\n    },\n    \"policy\": {\n      \"policyNumber\": \"\",\n      \"startDate\": \"\",\n      \"endDate\": \"\",\n      \"coverageType\": \"\",\n      \"coverageDetails\": {\n        \"inpatient\": \"\",\n        \"outpatient\": \"\",\n        \"prescriptionCoverage\": \"\"\n      },\n      \"deductible\": \"\",\n      \"coPay\": {\n        \"inpatient\": \"\",\n        \"outpatient\": \"\"\n      },\n      \"maxCoverageAmount\": \"\"\n    },\n    \"dependents\": [\n      {\n        \"dependentName\": \"\",\n        \"relation\": \"\",\n        \"dob\": \"\"\n      }\n    ],\n    \"insuranceProvider\": {\n      \"providerName\": \"\",\n      \"contact\": \"\",\n      \"address\": \"\"\n    }\n  }",
                 },
                 {
                     role: "model",
@@ -60,7 +60,7 @@ const processPDF= async (reportData,res) =>{
             },
         });
 
-        const msg = reportData +"\nRead the medical details and fill in the given json format";
+        const msg = reportData +"\nRead the insurance details and fill in the given format";
 
         const result = await chat.sendMessage(msg);
         const response = await result.response;
@@ -84,4 +84,4 @@ async function extractPdfText(pdfBuffer,res) {
    
 }
 
-module.exports = { reportAnalysis }
+module.exports = { insuranceAnalysis }

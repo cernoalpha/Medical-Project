@@ -21,14 +21,14 @@
 </head>
 
 <body>
-    <h1>directly put image or pdf to get the response</h1>
+    <h1>direct put hospital Bill to get the response</h1>
+    <a href="/">Prescription</a>
     <a href="/r">Report</a>
-    <a href="/b">hospital Bill</a>
     <a href="/i">Insurance</a>
     <a href="/p">Pharmacy Bill</a>
     <br><br>
     <input type="file" id="fileInput">
-    <button onclick="uploadFile()">Upload Prescription</button>
+    <button onclick="uploadFile()">Upload hospital Bill</button>
     <div id="loading">Loading...</div>
     <div id="response"></div>
 
@@ -43,18 +43,18 @@
             }
 
             const formData = new FormData();
-            formData.append('prescription', file);
+            formData.append('hospitalBill', file);
 
             // Show loading screen
             const loadingElement = document.getElementById('loading');
             loadingElement.style.display = 'block';
-            fetch('https://medical-project-z9xp.onrender.com/prescription', {
+
+            fetch('https://medical-project-z9xp.onrender.com/hospitalBill', {
                 method: 'POST',
                 body: formData
             })
                 .then(response => response.json())
                 .then(data => {
-                    console.log(data)
                     loadingElement.style.display = 'none';
 
                     try {
@@ -68,7 +68,6 @@
                 })
                 .catch(error => {
                     console.error('Error:', error);
-                    // Hide loading screen in case of an error
                     loadingElement.style.display = 'none';
                     displayResponse({ error: 'An error occurred while uploading the file.' });
                 });

@@ -30,5 +30,132 @@
             "Duration":""
         }
     ]
-}
+},
+
+{
+    "patient": {
+      "patientName": "",
+      "patientId": "",
+      "gender": "",
+      "address": "",
+      "contact": ""
+    },
+    "bill": {
+      "billId": "",
+      "date": "",
+      "dueDate": "",
+      "billingAddress": ""
+    },
+    "insurance": {
+      "companyName": "",
+      "policyNumber": "",
+      "groupNumber": "",
+      "coverageDetails": ""
+    },
+    "services": [
+      {
+        "service": "",
+        "description": "",
+        "date": "",
+        "cptCode": "",
+        "charge": ""
+      }
+    ],
+    "charges": {
+      "total": "",
+      "insurancePayments": "",
+      "patientPayments": "",
+      "adjustments": ""
+    },
+    "provider": {
+      "name": "",
+      "address": "",
+      "contact": "",
+      "npi": ""
+    }
+  },
+
+  {
+    "policyHolder": {
+      "policyHolderName": "",
+      "policyHolderId": "",
+      "dob": "",
+      "gender": "",
+      "contact": "",
+      "address": ""
+    },
+    "policy": {
+      "policyNumber": "",
+      "startDate": "",
+      "endDate": "",
+      "coverageType": "",
+      "coverageDetails": {
+        "inpatient": "",
+        "outpatient": "",
+        "prescriptionCoverage": ""
+      },
+      "deductible": "",
+      "coPay": {
+        "inpatient": "",
+        "outpatient": ""
+      },
+      "maxCoverageAmount": ""
+    },
+    "dependents": [
+      {
+        "dependentName": "",
+        "relation": "",
+        "dob": ""
+      }
+    ],
+    "insuranceProvider": {
+      "providerName": "",
+      "contact": "",
+      "address": ""
+    }
+  },
+
+  {
+    "patient": {
+      "patientName": "",
+      "patientId": "",
+      "gender": "",
+      "address": "",
+      "contact": ""
+    },
+    "prescription": {
+      "prescriptionNumber": "",
+      "prescriberName": "",
+      "prescriptionDate": "",
+      "medications": [
+        {
+          "medicationName": "",
+          "dosage": "",
+          "quantity": "",
+          "unitPrice": "",
+          "totalPrice": ""
+        }
+      ]
+    },
+    "pharmacy": {
+      "pharmacyName": "",
+      "pharmacyId": "",
+      "address": "",
+      "contact": ""
+    },
+    "totalAmount": "",
+    "insuranceCoverage": {
+      "coveredAmount": "",
+      "patientResponsibility": ""
+    },
+    "payment": {
+      "paymentMethod": "",
+      "transactionId": "",
+      "paymentAmount": "",
+      "paymentDate": ""
+    }
+  }
+  
+  
+  
 ]
